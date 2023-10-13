@@ -33,8 +33,10 @@ function App() {
     });
 
 
-    //@TODO  第一次登录时请求获取servercode,并生成hmacKey
-    request?.getServerCode('nan1a5', clientCode).then((serverCode) => {
+    //第一次登录时请求获取servercode,并生成hmacKey
+    request?.getServerCode(username, clientCode).then((serverCode) => {
+      console.log(username);
+      
       // setServerCode(serverCode);
       getHmacKey(serverCode, clientCode).then((res) => {
         // 将res存入localStorage
