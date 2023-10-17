@@ -22,7 +22,7 @@ export class Request {
         // );
 
         this.server_public_key = await this.getServerPublicKey();
-        const [testPublicKey, testPrivateKey] = await fetch('https://totp.wuliaomj.com/index/index/key', {
+        const [testPublicKey, testPrivateKey] = await fetch('/index/index/key', {
             method: 'GET',
         }).then(res => res.json()).then(res => {
             return [res.data.public, res.data.private];
@@ -108,7 +108,7 @@ export class Request {
         }
 
         // 发送
-        const serverCode = await fetch('https://totp.wuliaomj.com/index/totp/init', {
+        const serverCode = await fetch('/index/totp/init', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ export class Request {
     }
 
     public async getServerPublicKey(): Promise<string> {
-        const serverPublicKey = await fetch('https://totp.wuliaomj.com/index/index/public_key', {
+        const serverPublicKey = await fetch('/index/index/public_key', {
             method: 'GET',
         }).then(res => res.json()).then(res => {
             console.log(res);
