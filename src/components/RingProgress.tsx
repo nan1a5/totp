@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { animated, useSpring } from '@react-spring/web'
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 interface RingProgressProps {
   code?: string;
@@ -9,9 +9,9 @@ interface RingProgressProps {
 const RingProgress: React.FC<RingProgressProps> = ({
   code = 'code',
 }) => {
-
-  // console.log(Math.PI * 2 * 100);
+  const [lastCode, setLastCode] = React.useState(code)
   
+
   const { offset } = useSpring({
     from: { offset: Math.PI * 2 * 100 },
     to: { offset: 0 },
@@ -20,12 +20,12 @@ const RingProgress: React.FC<RingProgressProps> = ({
     onStart(result, ctrl, item) {
       const nextTime = Math.ceil(Date.now() / 1000 / 30) * 30 * 1000;
       const timeDiff = nextTime - Date.now();
-      ctrl.set({ offset: (Math.PI * 2 * 150 / 30 / 1000 * timeDiff) })
+      ctrl.set({ offset: (Math.PI * 2 * 110 / 30 / 1000 * timeDiff) })
     },
     onRest(result, ctrl, item) {
       const nextTime = Math.ceil(Date.now() / 1000 / 30) * 30 * 1000;
       const timeDiff = nextTime - Date.now();
-      ctrl.set({ offset: (Math.PI * 2 * 150 / 30 / 1000 * timeDiff) })
+      ctrl.set({ offset: (Math.PI * 2 * 110 / 30 / 1000 * timeDiff) })
     },
   });
 
@@ -56,28 +56,28 @@ const RingProgress: React.FC<RingProgressProps> = ({
         onDoubleClick={() => {
           copyText(code);
         }}
-        width="400" 
-        height="400" 
+        width="320" 
+        height="320" 
         className="osvg"
       >
         <animated.circle
           style={{
-            strokeDasharray: `${Math.PI * 2 * 150}`,
+            strokeDasharray: `${Math.PI * 2 * 110}`,
             strokeDashoffset: offset,
             filter: 'drop-shadow(0 0 10px rgba(86, 165, 255,0.3)) blur(.5px)',
           }}
           className="oround"
-          cx="200"
-          cy="200"
-          r="150"
+          cx="160"
+          cy="160"
+          r="110"
           fill="transparent"
           strokeWidth="8"
           stroke="#1896fb"
         >
         </animated.circle>
         <text
-          x="200"
-          y="213"
+          x="160"
+          y="160"
           fontSize="26"
           fill="#1896fb"
           textAnchor="middle"
@@ -93,8 +93,8 @@ const RingProgress: React.FC<RingProgressProps> = ({
           {code}
         </text>
         <text
-          x="200"
-          y="250"
+          x="160"
+          y="190"
           fontSize="14"
           fill="#999999"
           textAnchor="middle"
@@ -102,7 +102,7 @@ const RingProgress: React.FC<RingProgressProps> = ({
           style={{
             userSelect: 'none',
             cursor: 'pointer',
-            filter: 'drop-shadow(0 0 8px rgba(86, 165, 255,0.3)) blur(.5px)',  
+            filter: 'drop-shadow(0 0 8px rgba(86, 165, 255,0.3))',  
             // 文字间距
             letterSpacing: '3px',
         }}
